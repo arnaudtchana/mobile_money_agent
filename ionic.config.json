@@ -1,4 +1,14 @@
 {
   "name": "mobile_money_agent_app",
-  "app_id": ""
+  "app_id": "",
+  "integrations": {
+    "gulp": {}
+  },
+  "type": "ionic1",
+  "watchPatterns": [
+    "scss/**/*",
+    "www/**/*",
+    "!www/lib/**/*",
+    "!www/**/*.map"
+  ]
 }

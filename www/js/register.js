@@ -2,7 +2,7 @@
  * Created by user on 20/02/2018.
  */
 app
-  .controller('RegisterCtrl', function($scope,$state,Restangular,$cordovaGeolocation,$stateParams,$auth,$sessionStorage) {
+  .controller('RegisterCtrl', function($scope,$state,Restangular,$cordovaGeolocation,$stateParams,$auth,$sessionStorage,$ionicPopup) {
     $scope.data = {};
     $scope.valide_num = function(numero){
       var test = Math.floor(numero/100000000);
@@ -12,14 +12,26 @@ app
         return false;
       }
     }
-    $scope.register = function () {
-      console.log($scope.data);
+    $scope.register = function (isValid) {
+    //alert(isValid)
+    if(isValid){
+    console.log($scope.data);
       /*on controle la validite du numero de telephone*/
       $test = $scope.valide_num($scope.data.tel);
       if($test===true){
         /*on teste si le mot de passe et la confimation sont bons*/
         if($scope.data.password !== $scope.data.password_confirm){
-          alert("le mot de passe et la confirmation ne sont pas identiques");
+
+          // An alert dialog
+   var alertPopup = $ionicPopup.alert({
+     title: 'Attention !',
+     template: 'le mot de passe et la confirmation ne sont pas identiques '
+   });
+
+   /*alertPopup.then(function(res) {
+     console.log('Thank you for not eating my delicious ice cream cone');
+   });*/
+
           $scope.data.password = "";
           $scope.data.password_confirm = "";
         }else {
@@ -60,10 +72,17 @@ app
         }
 
       }else{
-        alert("numero de telephone invalide");
+
+         // An alert dialog
+   var alertPopup = $ionicPopup.alert({
+     title: 'Attention !',
+     template: 'Numéro de téléphone invalide '
+   });
         $scope.data.tel = "";
       }
       /*ensuite l'identite des deux mot de passe*/
       /*on va finaliser avec le processus de connexion plutard*/
+    }
+
     }
   });

@@ -3,25 +3,34 @@
  */
 app
   .controller('UpdateCompteCtrl', function($scope,$state,Restangular,$cordovaGeolocation,$stateParams,$auth,$sessionStorage,Users,Persons,$ionicLoading) {
-    $scope.data = {};
+
     //$scope.initial = {};
 
     /*on recupere les informations du user et de la personne*/
+    $scope.$on('$ionicView.enter', function () {
+      $ionicLoading.show({
+        template: 'Loading...',
+      })
+       $scope.data = {};
     Persons.getList({user_id:$sessionStorage.user_id}).then(function (data) {
       console.log("information de la personne",data);
       $scope.data = data[0];
       $scope.ancien_tel = data[0].tel;
       Users.get($sessionStorage.user_id).then(function (data) {
+      $ionicLoading.hide();
         console.log("les information du user",data);
         $scope.data.username = data.data.username;
         $scope.ancien_username = data.data.username;
         console.log("voici la valeur de la variable data final",$scope.data);
       },function (error) {
+            $ionicLoading.hide();
         console.log("une erreur est survenue")
       })
     },function (error) {
+          $ionicLoading.hide();
       console.log("une erreur est survenue")
     })
+    });
     /*on recupere les informations du users a present*/
 
 

@@ -3,7 +3,7 @@
  */
 app
   .controller('UpdateKiosqueCtrl', function($scope,$state,Restangular,$cordovaGeolocation,$stateParams,$auth,$sessionStorage,$ionicLoading,Kiosques,Kiosque_service,Services,ionicToast) {
-    $scope.data = {};
+
     /*on doit recuperer la liste des kiosques de lutilisateur conneceter*/
  //alert($stateParams.kiosque_id);
     /*on recupere egalement la liste des services*/
@@ -11,6 +11,7 @@ app
       $ionicLoading.show({
         template: 'Loading...',
       })
+       $scope.data = {};
       Services.getList().then(function (data) {
         $scope.liste_services = data;
         console.log('liste des services',$scope.liste_services);
